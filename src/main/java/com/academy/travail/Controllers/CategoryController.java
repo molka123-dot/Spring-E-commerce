@@ -2,12 +2,16 @@ package com.academy.travail.Controllers;
 
 import com.academy.travail.Dao.ICategory;
 import com.academy.travail.Models.Category;
+import com.academy.travail.Models.Product;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/categories")
 public class CategoryController {
     @Autowired
@@ -26,16 +30,18 @@ public class CategoryController {
         return icategory.findAll();
     }
     @DeleteMapping("/")
-    public boolean deleteCategory(Long id)
-    {
-        try{
-            Category c = icategory.getById(id);
+    public HashMap<String,String> deleteCategory(Long id) {
+
+        HashMap<String,String> reponse=new HashMap<String,String>();
+        try {
+        	Category c=icategory.getById(id);
             icategory.deleteById(id);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
+            reponse.put("state","true");
+            return reponse;
+        } catch (Exception e) {
+            reponse.put("state","false");
+
+            return reponse;
         }
     }
 

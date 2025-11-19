@@ -5,9 +5,11 @@ import com.academy.travail.Models.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired
@@ -26,16 +28,18 @@ public class OrderController {
         return iorder.findAll();
     }
     @DeleteMapping("/")
-    public boolean deleteOrder(Long id)
-    {
-        try{
-            Order o = iorder.getById(id);
-            iorder.deleteById(id);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
+    public HashMap<String,String> deleteOrder(Long id) {
+
+        HashMap<String,String> reponse=new HashMap<String,String>();
+        try {
+        	Order c=iorder.getById(id);
+        	iorder.deleteById(id);
+            reponse.put("state","true");
+            return reponse;
+        } catch (Exception e){
+            reponse.put("state","false");
+
+            return reponse;
         }
     }
 }

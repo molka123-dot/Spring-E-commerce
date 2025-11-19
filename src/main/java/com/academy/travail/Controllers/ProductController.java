@@ -7,9 +7,11 @@ import com.academy.travail.Models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
@@ -28,16 +30,18 @@ public class ProductController {
         return iproduct.findAll();
     }
     @DeleteMapping("/")
-    public boolean deleteProduct(Long id)
-    {
-        try{
-            Product o = iproduct.getById(id);
+    public HashMap<String,String> deleteProduct(Long id) {
+
+        HashMap<String,String> reponse=new HashMap<String,String>();
+        try {
+            Product c=iproduct.getById(id);
             iproduct.deleteById(id);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
+            reponse.put("state","true");
+            return reponse;
+        } catch (Exception e) {
+            reponse.put("state","false");
+
+            return reponse;
         }
     }
 }

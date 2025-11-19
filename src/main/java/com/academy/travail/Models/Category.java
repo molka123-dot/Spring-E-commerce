@@ -17,10 +17,8 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "title")
-    @NotNull(message = "title cannot be null")
     private String title;
     @Column(name = "description")
-    @NotNull(message = "description cannot be null")
     private String description;
     @OneToMany(mappedBy="categ")
     @JsonSerialize(using = CustomListSerializer.class)

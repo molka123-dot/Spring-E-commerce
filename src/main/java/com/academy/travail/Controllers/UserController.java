@@ -11,37 +11,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin("*")
 public class UserController {
     @Autowired
     private IUser iuser;
 
-
+    
+  
     @PostMapping("/")
-    public User addUser(@RequestBody User user){
+    public User login(@RequestBody User u) {
+    	try {
+    		User c = iuser.login(u.getEmail(), u.getPassword());
+    		return c;
 
-        return iuser.save(user);
-    }
-    @PutMapping("/")
-    public User updateUser(@RequestBody User user){
-        return iuser.saveAndFlush(user);
-    }
-    @GetMapping("/")
-    public List<User> getAlLUser()
-    {
-        return iuser.findAll();
-    }
-    @DeleteMapping("/")
-    public boolean deleteUser(Long id)
-    {
-        try{
-            User u = iuser.getById(id);
-            iuser.deleteById(id);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
-    }
+    	}
+    	catch(Exception e) {
+    		return null;
+    	}
+    	}
+    
 
 }

@@ -7,9 +7,11 @@ import com.academy.travail.Models.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/providers")
 public class ProviderController {
     @Autowired
@@ -28,16 +30,18 @@ public class ProviderController {
         return iprovider.findAll();
     }
     @DeleteMapping("/")
-    public boolean deleteProvider(Long id)
-    {
-        try{
-            Provider p = iprovider.getById(id);
+    public HashMap<String,String> deleteProvider(Long id) {
+
+        HashMap<String,String> reponse=new HashMap<String,String>();
+        try {
+        	Provider c=iprovider.getById(id);
             iprovider.deleteById(id);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
+            reponse.put("state","true");
+            return reponse;
+        } catch (Exception e) {
+            reponse.put("state","false");
+
+            return reponse;
         }
     }
 }

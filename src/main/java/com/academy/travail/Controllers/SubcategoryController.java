@@ -2,14 +2,17 @@ package com.academy.travail.Controllers;
 
 import com.academy.travail.Dao.IProvider;
 import com.academy.travail.Dao.ISubcategory;
+import com.academy.travail.Models.Product;
 import com.academy.travail.Models.Provider;
 import com.academy.travail.Models.SubCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/subcategories")
 public class SubcategoryController {
     @Autowired
@@ -28,16 +31,18 @@ public class SubcategoryController {
         return isubcategory.findAll();
     }
     @DeleteMapping("/")
-    public boolean deleteSubCategory(Long id)
-    {
-        try{
-            SubCategory sc = isubcategory.getById(id);
+    public HashMap<String,String> deleteSubCategory(Long id) {
+
+        HashMap<String,String> reponse=new HashMap<String,String>();
+        try {
+        	SubCategory c=isubcategory.getById(id);
             isubcategory.deleteById(id);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
+            reponse.put("state","true");
+            return reponse;
+        } catch (Exception e) {
+            reponse.put("state","false");
+
+            return reponse;
         }
     }
 }

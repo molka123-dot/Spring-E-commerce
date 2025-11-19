@@ -11,7 +11,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     @Column(name = "name")
-    @NotNull(message = "name cannot be null")
+    ///@NotNull(message = "name cannot be null")
     private String name;
     @Column(name = "email")
     @NotNull(message = "email cannot be null")
@@ -20,7 +20,7 @@ public class User implements Serializable {
     @NotNull(message = "password cannot be null")
     private String password;
     @Column(name = "photo")
-    @NotNull(message = "photo cannot be null")
+   /// @NotNull(message = "photo cannot be null")
     private String photo;
 
     public Long getId() {
